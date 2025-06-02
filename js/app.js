@@ -17,15 +17,17 @@ class ShoreSquadApp {
         this.loadEvents();
         this.setupMobileNavigation();
         this.setupSmoothScrolling();
-    }
-
-    // Setup event listeners
+    }    // Setup event listeners
     setupEventListeners() {
         // Navigation CTAs
         document.getElementById('startCleanupBtn')?.addEventListener('click', this.startCleanup.bind(this));
         document.getElementById('findCrewBtn')?.addEventListener('click', this.findCrew.bind(this));
         document.getElementById('joinSquadBtn')?.addEventListener('click', this.joinSquad.bind(this));
         document.getElementById('createEventBtn')?.addEventListener('click', this.createEvent.bind(this));
+        
+        // Next Cleanup CTAs
+        document.getElementById('joinPasirRisBtn')?.addEventListener('click', this.joinPasirRisCleanup.bind(this));
+        document.getElementById('getDirectionsBtn')?.addEventListener('click', this.getDirectionsToPasirRis.bind(this));
         
         // Map controls
         document.getElementById('currentLocationBtn')?.addEventListener('click', this.goToCurrentLocation.bind(this));
@@ -365,11 +367,34 @@ class ShoreSquadApp {
 
     joinLocationEvent(locationName) {
         this.showNotification(`Joined ${locationName} cleanup! 🌊`, 'success');
-    }
-
-    toggleFilter() {
+    }    toggleFilter() {
         this.showNotification('Filter options coming soon!', 'info');
         // In a real app, this would show filter options
+    }
+
+    // Pasir Ris Cleanup specific methods
+    joinPasirRisCleanup() {
+        this.showNotification('Joined Pasir Ris Beach Cleanup! 🏖️ See you at Street View Asia!', 'success');
+        this.trackEvent('join_pasir_ris_cleanup', {
+            location: 'Pasir Ris Beach',
+            coordinates: '1.381497, 103.955574'
+        });
+        // In a real app, this would add the user to the cleanup event
+    }
+
+    getDirectionsToPasirRis() {
+        const coordinates = '1.381497,103.955574';
+        const destination = `${coordinates}`;
+        const googleMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${destination}&travelmode=driving`;
+        
+        // Open directions in a new tab
+        window.open(googleMapsUrl, '_blank');
+        
+        this.showNotification('Opening directions to Pasir Ris Beach...', 'info');
+        this.trackEvent('get_directions_pasir_ris', {
+            coordinates: coordinates,
+            service: 'google_maps'
+        });
     }
 
     // Utility method to show notifications
