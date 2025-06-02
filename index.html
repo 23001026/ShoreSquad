@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Rally your crew, track weather, and hit the next beach cleanup with ShoreSquad!">
+    <meta name="keywords" content="beach cleanup, environmental, community, weather, maps">
+    <title>ShoreSquad - Rally Your Crew for Beach Cleanups</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Leaflet CSS for maps -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <i class="fas fa-water" aria-hidden="true"></i>
+                    <span>ShoreSquad</span>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="#home" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#events" class="nav-link">Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#map" class="nav-link">Map</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#about" class="nav-link">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#join" class="nav-link cta-btn">Join Squad</a>
+                    </li>
+                </ul>
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">Rally Your Crew for <span class="highlight">Beach Cleanups</span></h1>
+                <p class="hero-subtitle">Track weather, discover cleanup spots, and make eco-action fun with your squad!</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary" id="startCleanupBtn">
+                        <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                        Start a Cleanup
+                    </button>
+                    <button class="btn btn-secondary" id="findCrewBtn">
+                        <i class="fas fa-users" aria-hidden="true"></i>
+                        Find Your Crew
+                    </button>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="wave-animation"></div>
+            </div>
+        </section>
+
+        <!-- Weather Widget -->
+        <section class="weather-section">
+            <div class="container">
+                <div class="weather-widget" id="weatherWidget">
+                    <div class="weather-header">
+                        <i class="fas fa-cloud-sun" aria-hidden="true"></i>
+                        <h3>Today's Beach Conditions</h3>
+                    </div>
+                    <div class="weather-content" id="weatherContent">
+                        <p>Loading weather data...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Events Section -->
+        <section id="events" class="events-section">
+            <div class="container">
+                <h2 class="section-title">Upcoming Cleanups</h2>
+                <div class="events-grid" id="eventsGrid">
+                    <!-- Events will be dynamically loaded -->
+                    <div class="event-card">
+                        <div class="event-date">
+                            <span class="day">15</span>
+                            <span class="month">JUN</span>
+                        </div>
+                        <div class="event-details">
+                            <h3>Santa Monica Beach Cleanup</h3>
+                            <p><i class="fas fa-map-marker-alt"></i> Santa Monica, CA</p>
+                            <p><i class="fas fa-users"></i> 12 squad members going</p>
+                            <p><i class="fas fa-clock"></i> 9:00 AM - 12:00 PM</p>
+                        </div>
+                        <button class="btn btn-outline join-event-btn">Join Event</button>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button class="btn btn-primary" id="createEventBtn">Create New Event</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Map Section -->
+        <section id="map" class="map-section">
+            <div class="container">
+                <h2 class="section-title">Cleanup Locations</h2>
+                <div class="map-container">
+                    <div id="cleanupMap" class="cleanup-map"></div>
+                    <div class="map-controls">
+                        <button class="btn btn-sm" id="currentLocationBtn">
+                            <i class="fas fa-crosshairs"></i> My Location
+                        </button>
+                        <button class="btn btn-sm" id="filterBtn">
+                            <i class="fas fa-filter"></i> Filter
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about-section">
+            <div class="container">
+                <div class="about-content">
+                    <div class="about-text">
+                        <h2 class="section-title">Why ShoreSquad?</h2>
+                        <p class="about-description">
+                            We're mobilizing young people to clean beaches and protect our oceans. 
+                            With weather tracking, interactive maps, and social features, we make 
+                            environmental action fun and connected.
+                        </p>
+                        <div class="features-grid">
+                            <div class="feature">
+                                <i class="fas fa-cloud-sun" aria-hidden="true"></i>
+                                <h3>Weather Tracking</h3>
+                                <p>Real-time weather data to plan perfect cleanup days</p>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-map" aria-hidden="true"></i>
+                                <h3>Interactive Maps</h3>
+                                <p>Discover cleanup spots and navigate with ease</p>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-users" aria-hidden="true"></i>
+                                <h3>Social Crews</h3>
+                                <p>Connect with like-minded eco-warriors in your area</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section id="join" class="cta-section">
+            <div class="container">
+                <div class="cta-content">
+                    <h2>Ready to Make Waves?</h2>
+                    <p>Join thousands of young eco-warriors cleaning up our beaches!</p>
+                    <button class="btn btn-large btn-cta" id="joinSquadBtn">
+                        <i class="fas fa-wave-square" aria-hidden="true"></i>
+                        Join the Squad
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-water"></i>
+                        <span>ShoreSquad</span>
+                    </div>
+                    <p>Making beach cleanups social, fun, and impactful.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#events">Events</a></li>
+                        <li><a href="#map">Map</a></li>
+                        <li><a href="#about">About</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ShoreSquad. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
