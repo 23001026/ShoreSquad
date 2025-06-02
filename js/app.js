@@ -7,9 +7,7 @@ class ShoreSquadApp {
         this.weatherData = null;
         
         this.init();
-    }
-
-    // Initialize the application
+    }    // Initialize the application
     init() {
         this.setupEventListeners();
         this.initializeMap();
@@ -17,7 +15,10 @@ class ShoreSquadApp {
         this.loadEvents();
         this.setupMobileNavigation();
         this.setupSmoothScrolling();
-    }    // Setup event listeners
+        this.updatePasirRisInfo();
+    }
+
+    // Setup event listeners
     setupEventListeners() {
         // Navigation CTAs
         document.getElementById('startCleanupBtn')?.addEventListener('click', this.startCleanup.bind(this));
@@ -393,8 +394,64 @@ class ShoreSquadApp {
         this.showNotification('Opening directions to Pasir Ris Beach...', 'info');
         this.trackEvent('get_directions_pasir_ris', {
             coordinates: coordinates,
-            service: 'google_maps'
-        });
+            service: 'google_maps'        });
+    }
+
+    // Update Pasir Ris cleanup information
+    updatePasirRisInfo() {
+        // Update crew count dynamically
+        const crewCountElement = document.getElementById('crewCount');
+        if (crewCountElement) {
+            // Simulate growing crew count
+            let currentCount = parseInt(crewCountElement.textContent) || 25;
+            // Add some randomness to simulate real users joining
+            const newCount = currentCount + Math.floor(Math.random() * 3);
+            crewCountElement.textContent = newCount;
+        }
+
+        // Update weather for cleanup
+        const weatherElement = document.getElementById('cleanupWeather');
+        if (weatherElement && this.weatherData) {
+            const weather = this.weatherData;
+            let weatherText = `${weather.temperature}°F, ${weather.condition}`;
+            if (weather.temperature > 70 && weather.condition.toLowerCase().includes('sunny')) {
+                weatherText += ' - Perfect for cleanup! ☀️';
+            } else if (weather.condition.toLowerCase().includes('rain')) {
+                weatherText += ' - Check updates before heading out 🌧️';
+            } else {
+                weatherText += ' - Good conditions 👍';
+            }
+            weatherElement.textContent = weatherText;
+        }
+
+        // Calculate and display next cleanup date (always next Saturday)
+        const nextDateElement = document.getElementById('nextCleanupDate');
+        if (nextDateElement) {
+            const nextSaturday = this.getNextSaturday();
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            };
+            nextDateElement.textContent = nextSaturday.toLocaleDateString('en-US', options);
+        }
+    }
+
+    // Get next Saturday date
+    getNextSaturday() {
+        const today = new Date();
+        const daysUntilSaturday = (6 - today.getDay()) % 7;
+        const nextSaturday = new Date(today);
+        
+        // If today is Saturday, get next Saturday
+        if (daysUntilSaturday === 0) {
+            nextSaturday.setDate(today.getDate() + 7);
+        } else {
+            nextSaturday.setDate(today.getDate() + daysUntilSaturday);
+        }
+        
+        return nextSaturday;
     }
 
     // Utility method to show notifications

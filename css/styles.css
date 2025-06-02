@@ -557,6 +557,31 @@ a:hover {
 .location-pin i {
     color: var(--sunset-orange);
     font-size: 1.1rem;
+    animation: pin-pulse 2s infinite;
+}
+
+@keyframes pin-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.cleanup-details strong {
+    color: var(--deep-navy);
+}
+
+#crewCount {
+    color: var(--sea-green);
+    font-weight: var(--font-weight-semibold);
+}
+
+#nextCleanupDate {
+    color: var(--ocean-blue);
+    font-weight: var(--font-weight-semibold);
+}
+
+#cleanupWeather {
+    color: var(--wave-teal);
+    font-weight: var(--font-weight-medium);
 }
 
 /* Map Section */
