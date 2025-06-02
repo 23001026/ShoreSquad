@@ -83,18 +83,22 @@
             <div class="hero-visual">
                 <div class="wave-animation"></div>
             </div>
-        </section>
-
-        <!-- Weather Widget -->
+        </section>        <!-- Weather Widget -->
         <section class="weather-section">
             <div class="container">
                 <div class="weather-widget" id="weatherWidget">
                     <div class="weather-header">
                         <i class="fas fa-cloud-sun" aria-hidden="true"></i>
                         <h3>Today's Beach Conditions</h3>
+                        <button class="btn btn-sm btn-outline refresh-btn" id="refreshWeatherBtn" title="Refresh Weather Data">
+                            <i class="fas fa-sync-alt" aria-hidden="true"></i>
+                        </button>
                     </div>
                     <div class="weather-content" id="weatherContent">
-                        <p>Loading weather data...</p>
+                        <div class="weather-loading">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <p>Loading weather data...</p>
+                        </div>
                     </div>
                 </div>
             </div>
